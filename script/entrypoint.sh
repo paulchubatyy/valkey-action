@@ -8,6 +8,8 @@ cmd_run="$binary run -d -p $INPUT_HOST_PORT:$INPUT_CONTAINER_PORT docker.io/valk
 
 CONTAINER_NAME=$(eval "$cmd_run")
 
+echo "$CONTAINER_NAME" > /tmp/valkey_container_id
+
 echo "Starting the container $CONTAINER_NAME ..."
 
 while true; do

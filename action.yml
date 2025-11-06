@@ -19,5 +19,6 @@ inputs:
     default: 'latest'
 runs:
   using: 'docker'
-  image: 'Dockerfile'  
+  image: 'Dockerfile'
+  post-entrypoint: 'cleanup.sh'
 
