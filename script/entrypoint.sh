@@ -8,17 +8,17 @@ cmd_run="$binary run -d -p $INPUT_HOST_PORT:$INPUT_CONTAINER_PORT docker.io/valk
 
 CONTAINER_NAME=$(eval "$cmd_run")
 
-echo "$CONTAINER_NAME" > /tmp/valkey_container_id
+echo "::save-state name=container_id::$CONTAINER_NAME"
 
 echo "Starting the container $CONTAINER_NAME ..."
 
 while true; do
     STATUS=$($binary inspect --format='{{.State.Status}}' "$CONTAINER_NAME" 2>/dev/null)
     
-    if [ "$STATUS" == "running" ]; then
+    if [ "$STATUS" = "running" ]; then
         echo "The container $CONTAINER_NAME is up and running!"
         break
-    elif [ "$STATUS" == "exited" || "$STATUS" == "dead" ]; then
+    elif [ "$STATUS" = "exited" ] || [ "$STATUS" = "dead" ]; then
         echo "Failed to start the container $CONTAINER_NAME"
         exit 1
     else
